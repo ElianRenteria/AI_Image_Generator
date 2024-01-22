@@ -20,6 +20,7 @@ app.post('/dream', async (req, res) => {
         const prompt = req.body.prompt;
 
         const aiResponse = await openai.images.generate({
+          model: "dall-e-3",
           prompt,
           n: 1,
           size: '1024x1024',
@@ -33,4 +34,4 @@ app.post('/dream', async (req, res) => {
     }
   });
 
-app.listen(8080, () => console.log('make art on http://localhost:5173'));
+app.listen(5174, () => console.log('make art on http://localhost:5174/dream'));

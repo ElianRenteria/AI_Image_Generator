@@ -4,33 +4,23 @@ const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const data = new FormData(form);
     showSpinner();
+    const data = new FormData(form);
 
-    const response = await fetch('http://localhost:5173');
-
-    if (response.ok) {
-      const response = await fetch('http://localhost:5173', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: data.get('prompt'),
-        }),
-      });
-    } else {
-        const err = await response.text();
-        alert(err);
-        console.error(err);
-    }
+    const response = await fetch('http://localhost:5174', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: data.get('prompt'),
+      }),
+    });
 
     const { image } = await response.json();
-
     const result = document.querySelector('#result');
-    result.innerHTML = `<img src="${image}" width="512" />`;
     hideSpinner();
+    result.innerHTML = `<img src="${image}" width="512" />`;
 });
 
 
